@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400">
+  <rect width="300" height="400" fill="#f3e5f5"/>
+  <defs>
+    <linearGradient id="ps" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e1bee7"/><stop offset="100%" stop-color="#ce93d8"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="150" cy="200" rx="55" ry="110" fill="url(#ps)" stroke="#ba68c8" stroke-width="2"/>
+  <circle cx="140" cy="160" r="8" fill="rgba(255,255,255,0.5)"/>
+  <circle cx="165" cy="190" r="6" fill="rgba(255,255,255,0.4)"/>
+  <circle cx="145" cy="220" r="7" fill="rgba(255,255,255,0.45)"/>
+  <text x="150" y="340" text-anchor="middle" font-size="14" fill="#7b1fa2" font-family="sans-serif">Pastel</text>
+</svg>

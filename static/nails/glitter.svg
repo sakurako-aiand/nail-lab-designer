@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400">
+  <rect width="300" height="400" fill="#2a1a3a"/>
+  <defs>
+    <radialGradient id="g1"><stop offset="0%" stop-color="#fff" stop-opacity="1"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></radialGradient>
+  </defs>
+  <ellipse cx="150" cy="200" rx="50" ry="105" fill="#ff69b4" opacity="0.4"/>
+  <circle cx="120" cy="160" r="3" fill="url(#g1)"/><circle cx="180" cy="180" r="4" fill="url(#g1)"/>
+  <circle cx="140" cy="220" r="2.5" fill="url(#g1)"/><circle cx="160" cy="140" r="3.5" fill="url(#g1)"/>
+  <circle cx="130" cy="250" r="2" fill="url(#g1)"/><circle cx="170" cy="240" r="3" fill="url(#g1)"/>
+  <text x="150" y="340" text-anchor="middle" font-size="14" fill="#d4a5e0" font-family="sans-serif">Glitter</text>
+</svg>

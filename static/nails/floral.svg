@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400">
+  <rect width="300" height="400" fill="#fff0f5"/>
+  <ellipse cx="150" cy="200" rx="55" ry="110" fill="#fce4ec" stroke="#f8bbd0" stroke-width="2"/>
+  <circle cx="130" cy="160" r="10" fill="#fff"/><circle cx="130" cy="160" r="10" fill="none" stroke="#f48fb1" stroke-width="1.5"/>
+  <circle cx="170" cy="180" r="8" fill="#fff"/><circle cx="170" cy="180" r="8" fill="none" stroke="#f48fb1" stroke-width="1.5"/>
+  <circle cx="145" cy="210" r="6" fill="#fce4ec"/><circle cx="145" cy="210" r="6" fill="none" stroke="#f48fb1" stroke-width="1"/>
+  <circle cx="150" cy="165" r="3" fill="#ffd700"/>
+  <circle cx="170" cy="180" r="2.5" fill="#ffd700"/>
+  <circle cx="145" cy="210" r="2" fill="#ffd700"/>
+  <text x="150" y="340" text-anchor="middle" font-size="14" fill="#ad1457" font-family="sans-serif">Floral</text>
+</svg>

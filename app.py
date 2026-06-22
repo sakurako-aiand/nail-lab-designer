@@ -538,5 +538,125 @@ def extract_nails():
         return jsonify({"error": "Extraction failed", "nails": []}), 422
 
 
+# ─── Pinterest Discovery Feed ───
+
+from db import get_db, close_db, init_db, seed_demo_data, UPLOAD_DIR, DB_PATH
+
+# Initialize database
+with app.app_context():
+    init_db()
+    seed_demo_data()
+
+app.teardown_appcontext(close_db)
+
+
+@app.route("/")
+def pinterest():
+    return render_template("pinterest.html")
+
+
+@app.route("/price")
+def price_page():
+    return render_template("index.html")
+
+
+@app.route("/api/nails")
+def get_nails():
+    category = request.args.get("category", "").strip()
+    search = request.args.get("search", "").strip().lower()
+
+    db = get_db()
+    query = "SELECT * FROM nails WHERE 1=1"
+    params = []
+
+    if category:
+        query += " AND category = ?"
+        params.append(category)
+    if search:
+        query += " AND (LOWER(title) LIKE ? OR LOWER(description) LIKE ? OR LOWER(category) LIKE ?)"
+        params.extend([f"%{search}%", f"%{search}%", f"%{search}%"])
+
+    query += " ORDER BY created_at DESC"
+
+    rows = db.execute(query, params).fetchall()
+    nails = [dict(row) for row in rows]
+
+    # Check user likes
+    session_id = request.args.get("session_id", "")
+    if session_id:
+        liked_rows = db.execute(
+            "SELECT nail_id FROM likes WHERE session_id = ?", (session_id,)
+        ).fetchall()
+        liked_ids = {r["nail_id"] for r in liked_rows}
+        for n in nails:
+            n["user_liked"] = n["id"] in liked_ids
+
+    return jsonify(nails)
+
+
+@app.route("/api/upload", methods=["POST"])
+def upload_nail():
+    if "image" not in request.files:
+        return jsonify({"error": "No image"}), 400
+
+    file = request.files["image"]
+    if file.filename == "":
+        return jsonify({"error": "Empty file"}), 400
+
+    title = request.form.get("title", "Untitled").strip()
+    category = request.form.get("category", "Other").strip()
+
+    # Save image
+    ext = file.filename.rsplit(".", 1)[-1].lower() if "." in file.filename else "jpg"
+    ext = ext if ext in ["jpg", "jpeg", "png", "webp", "gif"] else "jpg"
+    filename = f"{uuid.uuid4().hex}.{ext}"
+    filepath = UPLOAD_DIR / filename
+    file.save(filepath)
+
+    db = get_db()
+    cursor = db.execute(
+        "INSERT INTO nails (title, description, category, image_path, likes) VALUES (?, ?, ?, ?, ?)",
+        (title, "", category, f"/static/uploads/nails/{filename}", 0),
+    )
+    db.commit()
+
+    nail_id = cursor.lastrowid
+    row = db.execute("SELECT * FROM nails WHERE id = ?", (nail_id,)).fetchone()
+    return jsonify(dict(row))
+
+
+@app.route("/api/like", methods=["POST"])
+def like_nail():
+    data = request.get_json()
+    nail_id = data.get("nail_id")
+    session_id = data.get("session_id", "")
+
+    if not nail_id or not session_id:
+        return jsonify({"error": "Missing fields"}), 400
+
+    db = get_db()
+
+    # Check if already liked
+    existing = db.execute(
+        "SELECT 1 FROM likes WHERE nail_id = ? AND session_id = ?", (nail_id, session_id)
+    ).fetchone()
+
+    if existing:
+        # Unlike
+        db.execute("DELETE FROM likes WHERE nail_id = ? AND session_id = ?", (nail_id, session_id))
+        db.execute("UPDATE nails SET likes = likes - 1 WHERE id = ?", (nail_id,))
+        liked = False
+    else:
+        # Like
+        db.execute("INSERT INTO likes (nail_id, session_id) VALUES (?, ?)", (nail_id, session_id))
+        db.execute("UPDATE nails SET likes = likes + 1 WHERE id = ?", (nail_id,))
+        liked = True
+
+    db.commit()
+
+    row = db.execute("SELECT likes FROM nails WHERE id = ?", (nail_id,)).fetchone()
+    return jsonify({"liked": liked, "likes": row["likes"]})
+
+
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)

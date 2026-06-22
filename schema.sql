@@ -1,0 +1,39 @@
+DROP TABLE IF EXISTS likes;
+DROP TABLE IF EXISTS boards;
+DROP TABLE IF EXISTS board_nails;
+DROP TABLE IF EXISTS nails;
+
+CREATE TABLE nails (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    description TEXT,
+    category TEXT,
+    image_path TEXT NOT NULL,
+    likes INTEGER DEFAULT 0,
+    views INTEGER DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE likes (
+    nail_id INTEGER NOT NULL,
+    session_id TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (nail_id, session_id),
+    FOREIGN KEY (nail_id) REFERENCES nails(id) ON DELETE CASCADE
+);
+
+CREATE TABLE boards (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    session_id TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE board_nails (
+    board_id INTEGER NOT NULL,
+    nail_id INTEGER NOT NULL,
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (board_id, nail_id),
+    FOREIGN KEY (board_id) REFERENCES boards(id) ON DELETE CASCADE,
+    FOREIGN KEY (nail_id) REFERENCES nails(id) ON DELETE CASCADE
+);

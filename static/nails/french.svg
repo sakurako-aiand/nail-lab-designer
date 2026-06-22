@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400">
+  <rect width="300" height="400" fill="#f5e6d3"/>
+  <ellipse cx="150" cy="200" rx="55" ry="110" fill="#fce5cd" stroke="#e0c0a0" stroke-width="2"/>
+  <path d="M95 130 Q150 110 205 130 L205 170 Q150 150 95 170 Z" fill="#fff" opacity="0.95"/>
+  <text x="150" y="320" text-anchor="middle" font-size="14" fill="#a08060" font-family="sans-serif">French Tip</text>
+</svg>

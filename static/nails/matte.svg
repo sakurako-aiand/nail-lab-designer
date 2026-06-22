@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400">
+  <rect width="300" height="400" fill="#3e2723"/>
+  <ellipse cx="150" cy="200" rx="50" ry="108" fill="#5d4037" stroke="#4e342e" stroke-width="2"/>
+  <text x="150" y="330" text-anchor="middle" font-size="14" fill="#a1887f" font-family="sans-serif">Matte</text>
+</svg>

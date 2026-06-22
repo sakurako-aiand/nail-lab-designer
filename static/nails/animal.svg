@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400">
+  <rect width="300" height="400" fill="#fbe9e7"/>
+  <ellipse cx="150" cy="200" rx="55" ry="110" fill="#d7ccc8"/>
+  <circle cx="130" cy="170" r="5" fill="#3e2723"/><circle cx="170" cy="170" r="5" fill="#3e2723"/>
+  <circle cx="140" cy="165" r="4.5" fill="#3e2723"/><circle cx="160" cy="180" r="4.5" fill="#3e2723"/>
+  <circle cx="135" cy="185" r="4" fill="#3e2723"/><circle cx="165" cy="165" r="4" fill="#3e2723"/>
+  <circle cx="150" cy="175" r="5" fill="#3e2723"/>
+  <ellipse cx="150" cy="200" rx="3" ry="8" fill="#fbe9e7" transform="rotate(10 150 200)"/>
+  <ellipse cx="150" cy="200" rx="3" ry="8" fill="#fbe9e7" transform="rotate(-10 150 200)"/>
+  <text x="150" y="340" text-anchor="middle" font-size="14" fill="#5d4037" font-family="sans-serif">Animal Print</text>
+</svg>

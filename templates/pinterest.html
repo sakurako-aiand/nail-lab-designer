@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nail Lab — Discover Nail Art</title>
+  <link rel="stylesheet" href="/static/pinterest.css">
+</head>
+<body>
+<nav class="top-nav">
+  <a class="nav-logo" href="/">💅 Nail Lab</a>
+  <div class="nav-links">
+    <a href="/" class="active">Discover</a>
+    <a href="/nail-lab">Design Builder</a>
+    <a href="/price">Price Estimator</a>
+  </div>
+  <button class="btn-upload" id="btn-upload">+ Upload</button>
+</nav>
+
+<header class="hero-bar">
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+    </svg>
+    <input type="text" id="search-input" placeholder="Search nail art — e.g. 'glitter ombre'">
+  </div>
+
+  <div class="chips" id="chips">
+    <button class="chip active" data-cat="">All</button>
+    <button class="chip" data-cat="French Tip">French Tip</button>
+    <button class="chip" data-cat="Glitter">Glitter</button>
+    <button class="chip" data-cat="Ombre">Ombre</button>
+    <button class="chip" data-cat="Acrylic">Acrylic</button>
+    <button class="chip" data-cat="Gel">Gel</button>
+    <button class="chip" data-cat="Minimalist">Minimalist</button>
+    <button class="chip" data-cat="Floral">Floral</button>
+    <button class="chip" data-cat="Chrome">Chrome</button>
+    <button class="chip" data-cat="Abstract">Abstract</button>
+    <button class="chip" data-cat="Wedding">Wedding</button>
+    <button class="chip" data-cat="Matte">Matte</button>
+    <button class="chip" data-cat="3D Art">3D Art</button>
+    <button class="chip" data-cat="Holographic">Holographic</button>
+    <button class="chip" data-cat="Animal Print">Animal Print</button>
+    <button class="chip" data-cat="Geometric">Geometric</button>
+    <button class="chip" data-cat="Marble">Marble</button>
+    <button class="chip" data-cat="Neon">Neon</button>
+    <button class="chip" data-cat="Pastel">Pastel</button>
+    <button class="chip" data-cat="Nude">Nude</button>
+    <button class="chip" data-cat="Red">Red</button>
+  </div>
+</header>
+
+<main class="masonry" id="masonry"></main>
+
+<footer class="load-more-wrap">
+  <p class="end-msg" id="end-msg" style="display:none">That's all for now ✨</p>
+</footer>
+
+<!-- Upload Modal -->
+<div class="modal" id="upload-modal">
+  <div class="modal-backdrop"></div>
+  <div class="modal-panel">
+    <button class="modal-close" id="modal-close">&times;</button>
+    <h2>Upload Nail Art</h2>
+    <div class="upload-zone" id="upload-zone">
+      <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4m14-7L12 3 9 9"/><path d="M12 3v12"/>
+      </svg>
+      <p>Drop a photo or click to browse</p>
+      <input type="file" id="file-upload" accept="image/*" hidden>
+    </div>
+    <div class="form-group">
+      <label>Title</label>
+      <input type="text" id="upload-title" placeholder="e.g. Rose Gold Glitter Tips">
+    </div>
+    <div class="form-group">
+      <label>Category</label>
+      <select id="upload-category">
+        <option value="French Tip">French Tip</option>
+        <option value="Glitter">Glitter</option>
+        <option value="Ombre">Ombre</option>
+        <option value="Acrylic">Acrylic</option>
+        <option value="Gel">Gel</option>
+        <option value="Minimalist">Minimalist</option>
+        <option value="Floral">Floral</option>
+        <option value="Chrome">Chrome</option>
+        <option value="Abstract">Abstract</option>
+        <option value="Wedding">Wedding</option>
+        <option value="Matte">Matte</option>
+        <option value="3D Art">3D Art</option>
+        <option value="Holographic">Holographic</option>
+        <option value="Animal Print">Animal Print</option>
+        <option value="Geometric">Geometric</option>
+        <option value="Marble">Marble</option>
+        <option value="Neon">Neon</option>
+        <option value="Pastel">Pastel</option>
+        <option value="Nude">Nude</option>
+        <option value="Red">Red</option>
+      </select>
+    </div>
+    <button class="btn-submit" id="btn-submit" disabled>Post</button>
+  </div>
+</div>
+
+<!-- Detail Modal -->
+<div class="modal" id="detail-modal">
+  <div class="modal-backdrop"></div>
+  <div class="modal-panel detail-panel">
+    <button class="modal-close" id="detail-close">&times;</button>
+    <div class="detail-layout">
+      <div class="detail-img-wrap" id="detail-img-wrap"></div>
+      <div class="detail-info">
+        <h2 id="detail-title"></h2>
+        <span class="detail-cat" id="detail-cat"></span>
+        <p class="detail-desc" id="detail-desc"></p>
+        <div class="detail-actions">
+          <button class="btn-like" id="btn-like">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+            </svg>
+            <span id="detail-likes">0</span>
+          </button>
+          <button class="btn-save" id="btn-save">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="/static/pinterest.js"></script>
+</body>
+</html>

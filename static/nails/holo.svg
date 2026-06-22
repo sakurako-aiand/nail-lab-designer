@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="400" viewBox="0 0 300 400">
+  <rect width="300" height="400" fill="#1a1a2e"/>
+  <defs>
+    <linearGradient id="hl" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ff6b6b"/><stop offset="25%" stop-color="#feca57"/><stop offset="50%" stop-color="#48dbfb"/><stop offset="75%" stop-color="#ff9ff3"/><stop offset="100%" stop-color="#54a0ff"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="150" cy="200" rx="52" ry="110" fill="url(#hl)" opacity="0.7"/>
+  <ellipse cx="150" cy="200" rx="52" ry="110" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  <text x="150" y="340" text-anchor="middle" font-size="14" fill="#aaa" font-family="sans-serif">Holographic</text>
+</svg>
