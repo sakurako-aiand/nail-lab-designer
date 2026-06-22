@@ -1,0 +1,16 @@
+# Byte-compiled
+__pycache__/
+*.py[cod]
+
+# Environment
+.env
+
+# Uploads
+static/uploads/
+
+# Logs
+estimates_log.jsonl
+
+# OS
+.DS_Store
+Thumbs.db

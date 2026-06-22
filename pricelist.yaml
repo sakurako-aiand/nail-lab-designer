@@ -1,0 +1,107 @@
+# Nail Salon Price List
+# ======================
+# Edit this file to update your pricing. The app reads this file on every request.
+# All prices in USD.
+
+salon:
+  name: "Your Salon Name"
+  max_price: 95  # Absolute maximum before custom pricing is required
+
+complexity_levels:
+  level_1_simple:
+    label: "Level 1 (Simple)"
+    description: "Solid color, French tip, single glitter stripe"
+    base_price_min: 25
+    base_price_max: 35
+
+  level_2_medium:
+    label: "Level 2 (Medium)"
+    description: "Two+ colors, simple patterns (checks, stripes), ombre, basic stamping"
+    base_price_min: 40
+    base_price_max: 55
+
+  level_3_complex:
+    label: "Level 3 (Complex)"
+    description: "Multi-color gradients, detailed hand-painting (florals, characters), 3D elements, chrome/mirror finish, intricate geometric patterns"
+    base_price_min: 60
+    base_price_max: 85
+
+  custom:
+    label: "Custom"
+    description: "10 different designs per nail, extreme detail, celebrity-level art"
+    base_price_min: 85
+    base_price_max: 95
+
+base_types:
+  gel:
+    label: "Gel Polish"
+    included_in_base: true
+  acrylic:
+    label: "Acrylic"
+    price: 10
+  dip_powder:
+    label: "Dip Powder"
+    price: 15
+  natural:
+    label: "Natural Nails (no overlay)"
+    included_in_base: true
+
+set_types:
+  full_set:
+    label: "Full Set (10 nails)"
+    note: "Default assumption"
+  partial_set:
+    label: "Partial Set (<10 nails)"
+    discount_percent: 20
+
+add_ons:
+  extra_length:
+    label: "Extra Length (tips/extensions)"
+    price: 10
+
+  specialty_shape:
+    label: "Specialty Shape (stiletto, almond, coffin)"
+    price: 5
+    note: "Round and square shapes included in base price"
+
+  rhinestones:
+    label: "Rhinestones"
+    price_per_item: 5
+    note: "Per nail for clustered application. Single stone $5."
+
+  charms:
+    label: "Charms"
+    price_per_item: 5
+
+  studs:
+    label: "Studs"
+    price_per_item: 3
+
+  foil:
+    label: "Foil Application"
+    price: 8
+
+  flocking:
+    label: "Flocking / Velvet"
+    price: 10
+
+  chrome:
+    label: "Chrome / Mirror Finish"
+    price: 15
+    note: "If not already classified as Level 3"
+
+  nail_art_accent:
+    label: "Accent Nail Art"
+    price_per_nail: 5
+    note: "Per nail beyond 2. First 2 accent nails included in complex pricing."
+
+  repairs:
+    label: "Nail Repair / Damaged Nails"
+    price_per_nail: 5
+
+  nail_art_full:
+    label: "Full Art Upgrade"
+    price: 20
+    note: "If every nail has a different intricate design"
+
+disclaimer: "This is an AI estimate. Final price will be confirmed in person to account for nail length, shape, and hand condition."

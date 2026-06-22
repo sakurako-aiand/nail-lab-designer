@@ -1,0 +1,404 @@
+/* Nail Lab — Design Builder */
+:root {
+  --bg: #f6f2ee;
+  --panel-bg: #fff;
+  --text: #2d2323;
+  --text-muted: #8a7e7a;
+  --accent: #c44569;
+  --accent-hover: #a83755;
+  --accent-light: #fdf0f4;
+  --border: #e8dddb;
+  --shadow: 0 2px 12px rgba(0,0,0,.06);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100dvh;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  display: flex;
+  height: 100dvh;
+  gap: 0;
+}
+
+/* ─── Sidebar ─── */
+.sidebar, .sidebar-right {
+  width: 280px;
+  background: var(--panel-bg);
+  overflow-y: auto;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.sidebar-right {
+  border-right: none;
+  border-left: 1px solid var(--border);
+}
+
+.logo {
+  padding: 18px 16px 14px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--panel-bg);
+  z-index: 2;
+}
+
+.panel {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.panel h3 {
+  font-size: .8rem;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.panel label {
+  font-size: .78rem;
+  color: var(--text-muted);
+  display: block;
+  margin: 10px 0 4px;
+}
+
+.panel select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: .85rem;
+  background: #fff;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.hint {
+  font-size: .75rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+/* ─── Upload box ─── */
+.upload-box {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: 18px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.upload-box:hover, .upload-box.dragover {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+
+.upload-box svg { color: var(--accent); }
+.upload-box span { font-size: .85rem; font-weight: 600; }
+.upload-box small { font-size: .72rem; color: var(--text-muted); }
+
+/* ─── Sticker grid ─── */
+.sticker-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-top: 8px;
+  min-height: 40px;
+}
+
+.sticker {
+  aspect-ratio: 3/4;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: grab;
+  position: relative;
+  border: 2px solid var(--border);
+  transition: transform .15s, border-color .15s;
+  background: #f5f5f5;
+}
+
+.sticker:hover { transform: scale(1.05); border-color: var(--accent); }
+.sticker:active { cursor: grabbing; }
+
+.sticker img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sticker .delete-sticker {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(0,0,0,.55);
+  color: #fff;
+  border: none;
+  font-size: 10px;
+  line-height: 18px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .15s;
+}
+
+.sticker:hover .delete-sticker { opacity: 1; }
+
+/* ─── Buttons ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: .82rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background .15s;
+  white-space: nowrap;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+}
+
+.btn-outline:hover { background: var(--accent-light); }
+
+.btn-ai {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  width: 100%;
+  padding: 10px 14px;
+  font-size: .85rem;
+}
+
+.btn-ai:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.btn-ai .sparkle { font-size: 1rem; }
+
+/* ─── Main canvas area ─── */
+.canvas-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.toolbar {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+}
+
+.hand-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+#hand-canvas {
+  display: block;
+  max-height: 75vh;
+  max-width: 90vw;
+}
+
+.drop-zones {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.drop-zone {
+  position: absolute;
+  border: 2px dashed rgba(196, 69, 105, .35);
+  border-radius: 12px;
+  transition: background .15s, border-color .15s;
+  pointer-events: auto;
+}
+
+.drop-zone.hover {
+  background: rgba(196, 69, 105, .12);
+  border-color: var(--accent);
+  border-style: solid;
+}
+
+.drop-zone.filled::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+}
+
+.finger-labels {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 420px;
+  margin-top: 8px;
+}
+
+.finger-labels span {
+  font-size: .72rem;
+  color: var(--text-muted);
+  text-align: center;
+  flex: 1;
+}
+
+/* ─── Gallery ─── */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.gallery-item {
+  aspect-ratio: 3/4;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color .15s;
+  background: #f5f5f5;
+  position: relative;
+}
+
+.gallery-item:hover { border-color: var(--accent); }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+
+.gallery-item .delete-saved {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(0,0,0,.55);
+  color: #fff;
+  border: none;
+  font-size: 10px;
+  line-height: 18px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .15s;
+  z-index: 2;
+}
+
+.gallery-item:hover .delete-saved { opacity: 1; }
+
+.empty {
+  grid-column: span 2;
+  font-size: .78rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 20px 8px;
+}
+
+/* ─── Tone picker ─── */
+.tone-picker {
+  display: flex;
+  gap: 5px;
+}
+
+.tone-picker button {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color .15s, transform .15s;
+}
+
+.tone-picker button:hover { transform: scale(1.15); }
+.tone-picker button.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-light);
+}
+
+/* ─── Overlay ─── */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.7);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay.show { display: flex; }
+
+.overlay-content {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 24px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+  text-align: center;
+}
+
+.overlay-content img {
+  max-width: 100%;
+  max-height: 70vh;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.overlay-content .close-overlay {
+  display: block;
+  margin: 12px auto 0;
+  padding: 8px 24px;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .app { flex-direction: column; }
+  .sidebar, .sidebar-right {
+    width: 100%;
+    max-height: 35vh;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-right { border-left: none; border-top: 1px solid var(--border); }
+  .canvas-area { height: 45vh; }
+  .sticker-grid { grid-template-columns: repeat(4, 1fr); }
+}

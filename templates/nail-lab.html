@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nail Lab — Design Builder</title>
+  <link rel="stylesheet" href="/static/nail-lab.css">
+</head>
+<body>
+
+<div class="app">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="logo">💅 <span>Nail Lab</span></div>
+
+    <div class="panel">
+      <h3>Your Nail Library</h3>
+      <div class="upload-box" id="upload-box">
+        <input type="file" id="nail-upload" accept="image/*" hidden multiple>
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4m4-7l5-5 5 5m-5-5v12"/>
+        </svg>
+        <span>Upload nail photos</span>
+        <small>Drag & drop or tap</small>
+      </div>
+      <div class="sticker-grid" id="sticker-grid"></div>
+    </div>
+
+    <div class="panel">
+      <h3>AI Extract</h3>
+      <button class="btn btn-ai" id="btn-extract" disabled>
+        <span class="sparkle">✦</span> Auto-extract nails from photo
+      </button>
+      <p class="hint">Let AI find and cut out individual nails for you.</p>
+    </div>
+
+    <div class="panel">
+      <h3>Hand Settings</h3>
+      <label>Skin Tone</label>
+      <div class="tone-picker" id="tone-picker">
+        <button data-tone="#fce4cc" class="active" style="background:#fce4cc"></button>
+        <button data-tone="#e8bea6" style="background:#e8bea6"></button>
+        <button data-tone="#d4a574" style="background:#d4a574"></button>
+        <button data-tone="#b8865a" style="background:#b8865a"></button>
+        <button data-tone="#8d5a3a" style="background:#8d5a3a"></button>
+        <button data-tone="#5c3a28" style="background:#5c3a28"></button>
+      </div>
+
+      <label>Nail Shape</label>
+      <select id="nail-shape">
+        <option value="square">Square</option>
+        <option value="round" selected>Round</option>
+        <option value="almond">Almond</option>
+        <option value="stiletto">Stiletto</option>
+        <option value="coffin">Coffin / Ballerina</option>
+      </select>
+    </div>
+  </aside>
+
+  <!-- Main Canvas -->
+  <main class="canvas-area">
+    <div class="toolbar">
+      <button class="btn btn-outline" id="btn-save">Save Look</button>
+      <button class="btn btn-outline" id="btn-export">Export PNG</button>
+      <button class="btn btn-outline" id="btn-clear">Clear All</button>
+    </div>
+
+    <div class="hand-wrapper">
+      <canvas id="hand-canvas"></canvas>
+      <div class="drop-zones" id="drop-zones"></div>
+    </div>
+
+    <div class="finger-labels">
+      <span>Thumb</span>
+      <span>Index</span>
+      <span>Middle</span>
+      <span>Ring</span>
+      <span>Pinky</span>
+    </div>
+  </main>
+
+  <!-- Gallery Sidebar -->
+  <aside class="sidebar-right" id="gallery-sidebar">
+    <div class="panel">
+      <h3>Saved Looks</h3>
+      <div class="gallery-grid" id="gallery-grid">
+        <p class="empty">No saved looks yet.<br>Create one and hit Save!</p>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- Overlay for large image preview -->
+<div class="overlay" id="overlay">
+  <div class="overlay-content" id="overlay-content"></div>
+</div>
+
+<!-- Hidden clipboard canvas for AI extraction -->
+<canvas id="extract-canvas" style="display:none"></canvas>
+
+<script src="/static/nail-lab.js"></script>
+</body>
+</html>

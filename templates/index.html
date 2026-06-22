@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nail Art Price Estimator</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>💅 Nail Art Price Estimator</h1>
+      <p class="subtitle">Upload a photo of your desired nail art for an instant AI estimate</p>
+    </header>
+
+    <main>
+      <!-- Upload Section -->
+      <section id="upload-section">
+        <div class="upload-area" id="drop-zone">
+          <input type="file" id="file-input" accept="image/*" capture="environment" hidden>
+          <div class="upload-content">
+            <svg class="upload-icon" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 16V4m0 0L8 8m4-4l4 4M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/>
+            </svg>
+            <p class="upload-text">Drop your nail inspo photo here</p>
+            <p class="upload-hint">or tap to browse — JPG, PNG, WebP</p>
+            <button class="btn btn-outline" id="browse-btn">Choose Photo</button>
+          </div>
+          <img id="preview" class="preview-img" alt="Preview" style="display:none">
+          <button class="btn btn-primary analyze-btn" id="analyze-btn" style="display:none">Estimate Price</button>
+          <button class="btn btn-outline reset-btn" id="reset-btn" style="display:none">Choose Different Photo</button>
+        </div>
+      </section>
+
+      <!-- Loading -->
+      <section id="loading-section" style="display:none">
+        <div class="loading-card">
+          <div class="spinner"></div>
+          <p>Analyzing your nail art...</p>
+          <p class="loading-sub">This takes just a few seconds</p>
+        </div>
+      </section>
+
+      <!-- Results -->
+      <section id="result-section" style="display:none">
+        <div class="result-card" id="result-card">
+          <div class="result-header">
+            <span class="badge" id="result-badge"></span>
+            <h2 id="result-price"></h2>
+          </div>
+          <div class="result-meta">
+            <span id="result-complexity"></span>
+          </div>
+          <div class="result-details" id="result-details"></div>
+          <div class="result-addons" id="result-addons" style="display:none">
+            <h4>Add-ons Detected</h4>
+            <ul id="addons-list"></ul>
+          </div>
+          <div class="result-notes" id="result-notes"></div>
+          <div class="disclaimer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span id="disclaimer-text"></span>
+          </div>
+        </div>
+        <button class="btn btn-outline new-estimate-btn" onclick="resetAll()">Get Another Estimate</button>
+      </section>
+
+      <!-- Error -->
+      <section id="error-section" style="display:none">
+        <div class="error-card">
+          <h3 id="error-title"></h3>
+          <p id="error-message"></p>
+          <button class="btn btn-primary" onclick="resetAll()">Try Another Photo</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Powered by AI · Estimates only · Final price confirmed in person</p>
+    </footer>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
